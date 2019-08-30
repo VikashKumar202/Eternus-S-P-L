@@ -1,0 +1,42 @@
+
+//find out the product details and who supply that product.
+select company_name,product_name,price from supplier inner join Product on supplier.supplier_id=Product.supplier_id;
+
+//find out the product details ordered by the specific customer.
+select Product_name,price from Product inner join  Cust_Order_Product on Product.product_Id=Cust_Order_Product.product_Id;
+
+//
+select c.cust_first_name,count(c.cust_first_name) from Customer_Information c inner join Cust_Order_Product  p on c.customer_Id=p.customer_Id group by c.cust_first_name ;
+
+
+
+select c.cust_first_name,count(p.customer_Id) from Customer_Information c inner join Cust_Order_Product  p on c.customer_Id=p.customer_Id group by p.customer_Id;
+
+select customer_Id,count(product_Id) from Cust_Order_Product group by(customer_Id);
+
+
+2.a  Fetch customers with multiple orders using joins
+
+
+select c.customer_Id,c.cust_first_name,c.cust_last_name,c.cust_mobile_number,c.cust_email,o.orderId  from Customer_Information c inner join OrderByCustomer  o on c.customer_Id=o.customerId where customerId in(select customerId  from [OrderByCustomer]  group by customerId having count(customerId)>1) ;
+
+
+2.b  Find product details present in cart.
+
+select * from CartDetails
+
+select  productId from CartDetails group by productId
+
+select * from Product where product_Id in (select  productId from CartDetails group by productId)
+
+2.c  Find distinct customers who have made multiple orders.
+
+select distinct(c.customer_Id),c.cust_first_name,c.cust_last_name,c.cust_mobile_number,c.cust_email
+ from Customer_Information c inner join OrderByCustomer  o on c.customer_Id=o.customerId
+  where customerId in(select customerId  from [OrderByCustomer]  group by customerId 
+  having count(customerId)>1) ;
+
+2.d  Find distinct Orders made by multiple customers
+
+
+3. Explore in-Build functions(String, etc.), Aggregate functions.

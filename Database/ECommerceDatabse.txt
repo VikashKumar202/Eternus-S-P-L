@@ -1,0 +1,98 @@
+
+
+create table Customer_Information
+(
+customer_Id int  primary key NOT NULL IDENTITY(1,1),
+cust_first_name varchar(20) not null,
+cust_last_name varchar(20) not null,
+cust_mobile_number varchar(10) not null,
+cust_email varchar(50) not null,
+cust_user_name varchar(50) not null,
+cust_password varchar(20) not null
+);
+
+CREATE TABLE Customer_Card_Information
+(
+cust_Card_Id int primary key not null IDENTITY(1,1),
+customer_Id int not null,
+bank_name varchar,
+card_number varchar,
+card_expiry_date date,
+foreign key (customer_Id) references Customer_Information(customer_Id)
+);
+
+
+
+CREATE TABLE Customer_Shipping_Address
+(
+cust_ShipAdd_Id int primary key not null IDENTITY(1,1),
+customer_Id int not null,
+cust_street varchar(50),
+cust_address varchar(50),
+cust_city varchar(50),
+cust_state varchar(50),
+cust_zip_code varchar(6),
+foreign key (customer_Id) references Customer_Information(customer_Id)
+);
+
+
+create table category
+(
+category_id int not null primary key IDENTITY(1,1),
+category_name varchar(50),
+)
+
+create table supplier
+(
+supplier_id int primary key not null IDENTITY(1,1),
+company_name varchar(20),
+supplier_mobile varchar(10)
+)
+
+
+create table Product
+(
+product_Id int primary key not null IDENTITY(1,1),
+product_name varchar(50),
+supplier_id int not null,
+product_description varchar(50),
+price float
+foreign key (supplier_id) references supplier(supplier_id)
+)
+
+create table order_product
+(
+order_id int not null primary key IDENTITY(1,1),
+customer_Id int not null,
+product_Id int not null,
+total_Price float,
+order_date date,
+foreign key (customer_Id) references Customer_Information(customer_Id),
+foreign key (product_Id) references Product(product_Id)
+)
+
+create table Order_Datails
+(
+order_id int not null,
+product_Id int not null,
+quantity int
+)
+
+create table ShipmentDetails
+(
+Shipment_id int not null primary key IDENTITY(1,1),
+customer_Id int not null,
+order_id int not null,
+cust_ShipAdd_Id int not null,
+foreign key (customer_Id) references Customer_Information(customer_Id),
+foreign key (cust_ShipAdd_Id) references Customer_Shipping_Address(cust_ShipAdd_Id),
+foreign key (order_id) references order_product(order_id),
+)
+
+create table ShoppingCart
+(
+Cart_Id int not null primary key IDENTITY(1,1),
+customer_Id int not null,
+product_Id int not null, 
+total_price float
+)
