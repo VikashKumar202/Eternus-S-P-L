@@ -1,0 +1,136 @@
+﻿@model WebAPIFinalFianl.Models.Employee
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@*
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Employee</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.employeeId, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.employeeId)
+                    @Html.ValidationMessageFor(model => model.employeeId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.employeeName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.employeeName)
+                    @Html.ValidationMessageFor(model => model.employeeName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.department, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.department)
+                    @Html.ValidationMessageFor(model => model.department)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.salary, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.salary)
+                    @Html.ValidationMessageFor(model => model.salary)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+*@
+<table>
+<tr>
+<td>Enter Employee ID:</td>
+<td><input type="text" id="employeeId"></td>
+</tr>
+
+    <tr>
+        <td>Enter Employee Name:</td>
+        <td><input type="text" id="employeeName"></td>
+    </tr>
+
+
+    <tr>
+        <td>Enter Technology of Employee:</td>
+        <td><input type="text" id="department"></td>
+    </tr>
+
+    <tr>
+        <td>Enter Employee Salary</td>
+        <td><input type="text" id="salary"></td>
+    </tr>
+
+    <tr>
+        <td><button onclick="myfunction()">Add</button></td>
+    </tr>
+
+
+</table>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+<script>
+    function myfunction() {
+        Employee = {};
+        Employee.employeeId = $("#employeeId").val();
+        Employee.employeeName = $("#employeeName").val();
+        Employee.department = $("#department").val();
+        Employee.Salary = $("#salary").val();
+        alert("Record Inserted Successfully");
+        /*     employeeId: $.trim($('#employeeId').val()),
+             employeeName: $.trim($('#employeeName').val()),
+             department: $.trim($('#department').val()),
+             salary: $.trim($('#salary').val())*/
+
+     
+
+        $.ajax({
+            url: 'http://localhost:62149/api/Employees',
+            type: 'POST',
+            data: JSON.stringify(Employee),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                CheckIfInvoiceFound(result);
+            },
+            async: true,
+            processData: false
+        });
+    }
+    </script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+    @Html.ActionLink("Back to Main menu", "MainView")
+</div>

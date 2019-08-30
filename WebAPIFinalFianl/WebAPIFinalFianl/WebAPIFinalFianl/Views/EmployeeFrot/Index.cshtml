@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebAPIFinalFianl.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+
+<div class="row">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+    <script>
+        function ShowData() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:62149/api/Employees",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    //alert(JSON.stringify(data));
+                    $("#data").html('');
+                    var DIV = '';
+                    $.each(data, function (i, item) {
+                        var rows = "<tr>" +
+                            "<td>" + item.employeeId + "</td>" +
+                            "<td>" + item.employeeName + "</td>" +
+                            "<td>" + item.department + "</td>" +
+                            "<td>" + item.salary + "</td>" 
+                        "</tr>";
+                        $('#data').append(rows);
+                    }); //End of foreach Loop
+                    console.log(data);
+                }, //End of AJAX Success function
+
+                failure: function (data) {
+                    alert(data.responseText);
+                }, //End of AJAX failure function
+                error: function (data) {
+                    alert(data.responseText);
+                } //End of AJAX error function
+
+            });
+        }
+    </script>
+    <button onclick="ShowData();">Click</button>
+
+</div>
+<div>
+    <table id="data" border="1"></table>
+</div>
+
+<div>
+    @Html.ActionLink("Back to Main menu", "MainView")
+</div>
