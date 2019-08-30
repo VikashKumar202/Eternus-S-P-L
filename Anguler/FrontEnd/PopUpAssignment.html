@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+  
+<div class="container">
+  <div class="row">
+   <div class="col-lg-12">
+
+	<form role="form" id="ps_entry" name="ps_entry" method="post" onsubmit="return entry_check()" action="/user/ps/add/">
+	
+	 <div class="row">
+	
+	
+	<div class="col-sm-4">
+	<div class="form-group">
+	<label for="inputEmployeName">Employee Name</label>
+	<input type="text" id="txtname"class="form-control">
+	</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	<div class="col-sm-4">
+	<div class="form-group">
+	<label for="inputContact">Contact</label>
+	<input type="text" id="txtcontactt" class="form-control">
+	</div>
+	</div>
+	
+	<div class="col-sm-4">
+	<div class="form-group">
+	<label for="inputEmail">Email</label>
+	<input type="email" id="txtemail" class="form-control">
+	</div>
+	</div>
+	</div>
+	
+	
+	
+	<div class="form-group">
+	
+	<input type="button" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-default" />
+	</div>
+	 
+	</form>
+   
+  </div>
+</div>
+</div>
+
+
+
+<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Confirm Submit</div>
+            <div class="modal-body">Are you sure you want to submit the following details?
+                <!-- We display the details entered by the user here -->
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <td id="typ"></td>
+                    </tr>
+                    <tr>
+                        <th>Contact</th>
+                        <td id="dat"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td id="pdat"></td>
+                    </tr>
+                    
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> <a href="" id="submit" class="btn btn-success success">Submit</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+$(document).ready(function() {
+    $('#submitBtn').click(function () {
+        /* when the button in the form, display the entered values in the modal */
+        $('#typ').html($('#txtname').val());
+        $('#dat').html($('#txtcontactt').val());
+        $('#pdat').html($('#txtemail').val());
+        
+    });
+
+    $('#submit').click(function () {
+        /* when the submit button in the modal is clicked, submit the form */
+        alert('submitting');
+        $('#ps_entry').submit();
+    });
+});
+</script>
+
+
+
+
+
+
+</body>
+</html>
